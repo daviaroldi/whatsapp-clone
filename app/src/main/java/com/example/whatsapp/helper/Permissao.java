@@ -11,8 +11,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Permissao {
+    /*
+        Checa se tem permissão de acesso aos recursos do device,
+        caso não tenha solicita ao usuário
+     */
     public static boolean validaPermissoes(int requestCode, Activity activity, String[] permissoes) {
-        List<String> listaPermissoes = new ArrayList<String>();
+        List<String> listaPermissoes = new ArrayList<>();
 //        if (Build.VERSION.SDK_INT >= 23)
         for (String permissao : permissoes) {
             if (ContextCompat.checkSelfPermission(activity, permissao) != PackageManager.PERMISSION_GRANTED) {

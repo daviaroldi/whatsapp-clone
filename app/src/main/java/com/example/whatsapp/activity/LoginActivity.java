@@ -7,27 +7,18 @@ import android.content.pm.PackageManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.telephony.SmsManager;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.example.whatsapp.R;
 import com.example.whatsapp.helper.Permissao;
-import com.example.whatsapp.helper.Preferencias;
-import com.github.rtoshiro.util.format.SimpleMaskFormatter;
-import com.github.rtoshiro.util.format.text.MaskTextWatcher;
-
-import java.util.HashMap;
-import java.util.Random;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private EditText nome;
-    private EditText telefone;
-    private Button cadastrar;
+    private EditText email;
+    private EditText password;
+    private Button logar;
     private String[] permissoes = new String[] {
             Manifest.permission.SEND_SMS,
             Manifest.permission.INTERNET
@@ -41,59 +32,62 @@ public class LoginActivity extends AppCompatActivity {
         Permissao.validaPermissoes(1, this, permissoes);
         findElements();
 
-        setMaskTelefone();
+//        setMaskTelefone();
 
-        cadastrar.setOnClickListener(new View.OnClickListener() {
+        logar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String nomeUsuario = nome.getText().toString();
-                String fone = telefone.getText().toString();
-
-                //remove formatacao
-                fone = fone.replace("(", "")
-                           .replace(")", "")
-                           .replace(" ", "")
-                           .replace("-", "");
-
-                //gera token
-                Random random = new Random();
-                int numero = random.nextInt(9999 - 1000) + 1000; //numeros entre 1000 e 9999
-                String token = String.valueOf(numero);
-
-                Preferencias preferencias = new Preferencias(LoginActivity.this);
-                preferencias.salvarUauarioPreferencias(nomeUsuario, fone, token);
-
-                HashMap<String, String> usuario = preferencias.getDadosUsuario();
-
-                String mensagem = "WhatsApp Código de Confirmação: " + token;
-                //envia SMS +55 -> (519999999)
-                boolean enviadoSMS = enviaSMS("+55" + usuario.get("telefone"), mensagem);
-
-                if (enviadoSMS) {
-//                    Intent intent = new Intent(LoginActivity.this, ValidadorActivity.class);
-//                    startActivity(intent);
-//                    finish();
-                } else {
-                    Toast.makeText(LoginActivity.this, "Problema ao enviar o SMS, tente novamente!", Toast.LENGTH_LONG).show();
-                }
-
-                Log.i("ENVIADO", ""+ enviadoSMS);
+//                String nomeUsuario = nome.getText().toString();
+//                String fone = telefone.getText().toString();
+//
+//                //remove formatacao
+//                fone = fone.replace("(", "")
+//                           .replace(")", "")
+//                           .replace(" ", "")
+//                           .replace("-", "");
+//
+//                //gera token
+//                Random random = new Random();
+//                int numero = random.nextInt(9999 - 1000) + 1000; //numeros entre 1000 e 9999
+//                String token = String.valueOf(numero);
+//
+//                Preferencias preferencias = new Preferencias(LoginActivity.this);
+//                preferencias.salvarUauarioPreferencias(nomeUsuario, fone, token);
+//
+//                HashMap<String, String> usuario = preferencias.getDadosUsuario();
+//
+//                String mensagem = "WhatsApp Código de Confirmação: " + token;
+//                //envia SMS +55 -> (51999999999)
+//                boolean enviadoSMS = enviaSMS("+55" + usuario.get("telefone"), mensagem);
+//
+//                if (enviadoSMS) {
+////                    Intent intent = new Intent(LoginActivity.this, ValidadorActivity.class);
+////                    startActivity(intent);
+////                    finish();
+//                } else {
+//                    Toast.makeText(LoginActivity.this, "Problema ao enviar o SMS, tente novamente!", Toast.LENGTH_LONG).show();
+//                }
+//
+//                Log.i("ENVIADO", ""+ enviadoSMS);
             }
         });
     }
 
-    private boolean enviaSMS(String telefone, String mensagem) {
-        try {
-            SmsManager smsManager = SmsManager.getDefault();
-            smsManager.sendTextMessage(telefone, null, mensagem, null, null);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
+//    private boolean enviaSMS(String telefone, String mensagem) {
+//        try {
+//            SmsManager smsManager = SmsManager.getDefault();
+//            smsManager.sendTextMessage(telefone, null, mensagem, null, null);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return false;
+//        }
+//
+//        return true;
+//    }
 
-        return true;
-    }
-
+    /*
+        Valida as permissões de acesso aos recursos do device
+     */
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
@@ -121,16 +115,21 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void findElements() {
-        telefone = findViewById(R.id.edit_telefone);
-        cadastrar = findViewById(R.id.button_cadastrar);
-        nome = findViewById(R.id.edit_nome);
+        password = findViewById(R.id.campoLoginSenha);
+        logar = findViewById(R.id.botaoLoginLogar);
+        email = findViewById(R.id.campoLoginEmail);
     }
 
-    private void setMaskTelefone() {
-        if (telefone != null) {
-            SimpleMaskFormatter simpleMaskTelefone = new SimpleMaskFormatter("(NN) NNNNN-NNNN");
-            MaskTextWatcher maskTelefone = new MaskTextWatcher(telefone, simpleMaskTelefone);
-            telefone.addTextChangedListener(maskTelefone);
-        }
+//    private void setMaskTelefone() {
+//        if (telefone != null) {
+//            SimpleMaskFormatter simpleMaskTelefone = new SimpleMaskFormatter("(NN) NNNNN-NNNN");
+//            MaskTextWatcher maskTelefone = new MaskTextWatcher(telefone, simpleMaskTelefone);
+//            telefone.addTextChangedListener(maskTelefone);
+//        }
+//    }
+
+    public void abrirCadastroUsuario(View view) {
+        Intent intent = new Intent(LoginActivity.this, CadastroUsuarioActivity.class);
+        startActivity(intent);
     }
 }
