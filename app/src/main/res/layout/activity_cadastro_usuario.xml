@@ -10,8 +10,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/imageView2"
@@ -34,7 +40,7 @@
             android:inputType="textPersonName" />
 
         <EditText
-            android:id="@+id/campoLoginEmail"
+            android:id="@+id/campoCadastroEmail"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -45,7 +51,7 @@
             android:inputType="textEmailAddress" />
 
         <EditText
-            android:id="@+id/campoLoginSenha"
+            android:id="@+id/campoCadastroSenha"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"

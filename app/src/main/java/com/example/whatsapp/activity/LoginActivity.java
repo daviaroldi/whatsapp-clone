@@ -12,7 +12,9 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.whatsapp.R;
+import com.example.whatsapp.config.ConfiguracaoFirebase;
 import com.example.whatsapp.helper.Permissao;
+import com.google.firebase.database.DatabaseReference;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -24,6 +26,8 @@ public class LoginActivity extends AppCompatActivity {
             Manifest.permission.INTERNET
     };
 
+    private DatabaseReference referenciaDatabase;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +35,9 @@ public class LoginActivity extends AppCompatActivity {
         //valida permissões
         Permissao.validaPermissoes(1, this, permissoes);
         findElements();
+
+        referenciaDatabase = ConfiguracaoFirebase.getInstance();
+        referenciaDatabase.child("pontos").setValue(800);
 
 //        setMaskTelefone();
 

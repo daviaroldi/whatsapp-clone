@@ -3,4 +3,6 @@
     <dimen name="largura_logo">200dp</dimen>
     <dimen name="altura_logo">163dp</dimen>
     <dimen name="marin_top_logo">32dp</dimen>
+    <dimen name="edit_margin_left">8dp</dimen>
+    <dimen name="edit_margin_right">8dp</dimen>
 </resources>
