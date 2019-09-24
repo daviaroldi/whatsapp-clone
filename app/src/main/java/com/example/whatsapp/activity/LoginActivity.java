@@ -36,9 +36,6 @@ public class LoginActivity extends AppCompatActivity {
         Permissao.validaPermissoes(1, this, permissoes);
         findElements();
 
-        referenciaDatabase = ConfiguracaoFirebase.getInstance();
-        referenciaDatabase.child("pontos").setValue(800);
-
 //        setMaskTelefone();
 
         logar.setOnClickListener(new View.OnClickListener() {
